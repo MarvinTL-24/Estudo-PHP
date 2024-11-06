@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formas</title>
+    <style>
+        fieldset{
+            width: 20%;
+            height: 20%;
+            margin-inline-start: 40%;
+            background-color: rgb(195, 201, 202);
+            text-align: center;
+        }
+        form{
+            align-content: center;
+            align-items: center;
+        }
+        body{
+            background-color: rgb(37, 49, 45);
+        }
+        input{
+            color: rgb(241, 77, 12);
+        }
+        
+    </style>
+</head>
+<body>
+    <fieldset>
+        <form action="Geometria.php" method="post">
+            <!--Triangulo
+             A= (B*H)/2 -->
+            Base: <input type="number" name="Base" step=".01" min="0"><br>
+            Altura: <input type="number" name="Altura" step=".01" min="0"><br>
+            <input type="submit" value="Area">
+        </form>
+    </fieldset>
+</body>
+</html>

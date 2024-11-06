@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While</title>
+    <style>
+        body{
+            background-color: rgb(37, 49, 45);
+            font-family: Arial, sans-serif;
+        }
+
+        fieldset{
+            width: 30%;
+            margin-inline: auto;
+            margin-top: 10%;
+            background-color: rgb(195, 201, 202);
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"] {
+            width: 80%;
+            padding: 5px;
+            margin-bottom: 2px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: rgb(241, 77, 12);
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(220, 70, 10);
+        }
+
+        option {
+            color: rgb(241, 77, 12);
+        }
+
+    </style>
+</head>
+<body>
+    <fieldset>
+        <form action="while.php" method="post">
+            <label>Valor inicial:</label>
+            <input type="number" name="inicial"><br>
+            <label>Valor final:</label>
+            <input type="number" name="final"><br>
+            <input type="submit" value="Repetir">
+        </form>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos</title>
+    <style>
+        fieldset{
+            width: 20%;
+            height: 20%;
+            margin-inline-start: 40%;
+            background-color: rgb(17, 176, 204);
+            text-align: center;
+        }
+        form{
+            align-content: center;
+            align-items: center;
+        }
+        body{
+            background-color: rgb(255, 230, 0);
+        }
+        input{
+            color: rgb(10, 64, 180);
+        }
+        
+    </style>
+</head>
+<body>
+    <fieldset>
+        <form action="Clima.php" method="post">
+            Saldo: <input type="number" name="Saldo" step="0.01" max="2000" min="0"><br>
+            Clima:<br>
+                <input type="radio" name="clima" value="verão">Verão
+                <input type="radio" name="clima" value="inverno">Inverno<br>
+            <input type="submit" value="Planos">
+        </form>
+    </fieldset>
+</body>
+</html>

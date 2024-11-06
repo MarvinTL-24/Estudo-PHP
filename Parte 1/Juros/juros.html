@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juros</title>
+</head>
+<body>
+    <fieldset style="margin: 5%; text-align: center; ;">
+        <form action="jurosSimples.php" method="post">
+            <!--Juros Simples
+            j = capital * taxa * tempo
+            Montante = J + capital -->
+            Capital: <input type="number" name="capital" step=".01" min="0"><br>
+            Taxa:    <input type="number" name="taxa" step=".01" min="0"><br>
+            Tempo:   <input type="number" name="tempo" min="0"><br>
+            <input type="submit" value="Calcular">
+        </form>
+    </fieldset>
+    <fieldset style="margin: 5%; text-align: center;">
+        <form action="jurosComposto.php" method="post">
+            <!--Juros Composto
+            Montante = capital * (1-taxa)**tempo-->
+            Capital: <input type="number" name="capital" step=".01" min="0"><br>
+            Taxa: <input type="number" name="taxa" step=".01" min="0"><br>
+            Tempo: <input type="number" name="tempo" min="0"><br>
+            <input type="submit" value="Calcular">
+        </form>
+    </fieldset>
+</body>
+</html>
