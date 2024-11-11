@@ -1,14 +1,10 @@
 <?php
 session_start();
-
-if (isset($_SESSION["login"])) {
-    if ($_SESSION["login"] == "1") {
-        unset($_SESSION["login"]);
-    } elseif ($_SESSION["login"] == "2") {
-        unset($_SESSION["login"]);
-        echo "<script>alert('Erro ao tentar calcular!!');</script>";
-    }
+if (isset($_SESSION["calculadora"])) {
+    echo "<script>alert('".$_SESSION["calculadora"]."');</script>";
+    unset($_SESSION["calculadora"]); 
 }
+
 include_once"head.html.php";
 
 echo "<body>
