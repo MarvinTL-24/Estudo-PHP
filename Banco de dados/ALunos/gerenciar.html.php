@@ -33,7 +33,7 @@ if ($result) {
         <td>{$linha['cpf']}</td>
         <td>{$linha['dataNascimento']}</td>
         <td>
-        <form action='Editar.html.php' method='post'>
+        <form action='editar.html.php' method='post'>
             <input type='hidden' name='id' value='{$linha['Id']}'>
             <button class='btn btn-warning' type='submit'>
                 <i class='bi bi-pencil-square'></i> Editar

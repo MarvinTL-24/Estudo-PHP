@@ -2,7 +2,7 @@
 include_once("Conectar.php");
 include_once("head.html.php");
 
-$sql = "SELECT * FROM  alunos WHERE id = 303";
+$sql = "SELECT * FROM  alunos WHERE id = ?";
 $resultado = mysqli_query($conn,$sql);
 $linha= mysqli_fetch_array( $resultado );
 if ($linha) {

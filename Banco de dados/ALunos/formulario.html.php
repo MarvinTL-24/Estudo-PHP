@@ -1,103 +1,98 @@
 <?php
 session_start();
-if(isset($_SESSION["insert"])){
-   if($_SESSION["insert"] == "1"){
-        unset($_SESSION["insert"]);
-        echo"<script>alert('Aluno cadastrado com sucesso!!');</script>";
-   }
-   else if($_SESSION["insert"] == "2"){
-        unset($_SESSION["insert"]);
-        echo"<script>alert('Erro ao tentar cadastrar!!');</script>";
-   }
+if (isset($_SESSION["insert"])) {
+    $message = "";
+    if ($_SESSION["insert"] == "1") {
+        $message = "Aluno cadastrado com sucesso!!";
+    } else if ($_SESSION["insert"] == "2") {
+        $message = "Erro ao tentar cadastrar!!";
+    }
+    unset($_SESSION["insert"]);
+    if ($message != "") {
+        echo "<script>alert('$message');</script>";
+    }
 }
 
-echo"<!DOCTYPE html>
-<html lang='pt-br'>
-<head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Formulario dos Alunos</title>
-    
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
-    
-    <script src='https://code.jquery.com/jquery-5.0.2.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
+include_once("head.html.php");
+include_once("Conectar.php");
 
-    <style>
-        body{
-            background-color: rgb(59, 204, 248);
-            font-family: Arial, sans-serif;
-        }
-
-        fieldset{
-            width: 30%;
-            margin-inline: auto;
-            margin-top: 10%;
-            background-color: #bbdefb;;
-            border-radius: 10px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        label {
-            text-align:center
-            margin-bottom: 2px;
-            font-weight: bold;
-        }
-
-        input[type] {
-            text-align: center;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #90caf9;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-            border-color: #0d47a1;
-            outline: none;
-        }
-
-        input[type='submit'] {
-            margin-top: 10px;
-            padding: 8px 20px;
-            background-color: rgb(241, 77, 12);
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        input[type='submit']:hover {
-            background-color: rgb(222, 235, 42);
-        }
-
-    </style>
-
-</head>";
-
+// Formulário de cadastro
 echo "<body>
-    <form action='Inserindo.php' method='post'>
+    <form action='Inserindo.php' method='post' enctype='multipart/form-data'>
         <fieldset>
             <div class='card container mt-3'>
                 <div class='mt-2'>
-                    <h2 style = 'text-align:center;'class='mt-0'>CADASTRO DE ALUNO</h2>
+                    <h2 style='text-align:center;' class='mt-0'>CADASTRO DE ALUNO</h2>
                 </div>  
                 <label>Nome:</label>
-                <input type ='text' name='nome' required><br>
-                <label>Senha:</label>
-                <input type ='password' name='senha' required><br>
+                <input type='text' name='nome' required><br>
                 <label>CPF:</label>
                 <input type='text' name='cpf' pattern='[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' placeholder='***.***.***-**' required><br>
+                <label>Senha:</label>
+                <input type='password' name='senha' required><br>
                 <label>Data de Nascimento:</label>
                 <input type='date' name='dataNascimento'><br>
-                <div class='mb-3' class='form-group'>
+                <div class='mb-3'>
                     <label>Escolha uma imagem: </label>
-                    <input type='file' name='imagem' id='imagem' accept='imagem/jpeg' class='form-control'>
+                    <input type='file' name='imagem' id='imagem' accept='image/jpeg,image/png,image/gif' class='form-control'>
                 </div>
-                <input type='submit' value='Cadastrar'>
+                <div class='text-center mt-4'>
+                    <input type='submit' value='Cadastrar' class='btn btn-primary'>
+                </div>
             </div>
         </fieldset>
     </form>
 </body>";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Verifica se a imagem foi carregada corretamente
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+        // Define o diretório para upload
+        $pasta = 'uploads/';
+        
+        // Verifica se o diretório existe, se não, cria
+        if (!is_dir($pasta)) {
+            if (!mkdir($pasta, 0777, true)) {
+                die('Falha ao criar diretório de uploads.');
+            }
+        }
+
+        // Gerar um nome único para o arquivo
+        $imagemNome = uniqid() . '_' . basename($_FILES['imagem']['name']);
+        $imagemPath = $pasta . $imagemNome;
+
+        // Tenta mover o arquivo para o diretório de uploads
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $imagemPath)) {
+            // Recebe os dados do formulário
+            $nome = $_POST["nome"];
+            $senha = password_hash($_POST["senha"], PASSWORD_BCRYPT); // Gera o hash da senha
+            $cpf = $_POST["cpf"];
+            $email = $_POST["email"];
+            $dataNascimento = $_POST["dataNascimento"];
+
+            // Prepara a consulta SQL para inserir no banco de dados
+            $sql = "INSERT INTO alunos (nome, senha, cpf, email, imagem, dataNascimento) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) {
+                die("Erro na preparação da consulta: " . $conn->error);
+            }
+
+            // Faz o bind dos parâmetros e executa a consulta
+            $stmt->bind_param("ssssss", $nome, $senha, $cpf, $email, $imagemPath, $dataNascimento);
+            if ($stmt->execute()) {
+                $_SESSION["insert"] = "1"; // Sucesso
+                header('Location: Alunos.html.php');
+                exit;
+            } else {
+                $_SESSION["insert"] = "2"; // Erro
+                header('Location: Alunos.html.php');
+                exit;
+            }
+        } else {
+            echo "Erro ao mover o arquivo para o diretório.";
+        }
+    } else {
+        echo "Nenhum arquivo enviado ou houve erro no envio da imagem.";
+    }
+}
 ?>
