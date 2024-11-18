@@ -14,9 +14,9 @@ if ($linha) {
                 <h5 class='card-title'>$linha[nome]</h5>
                 <p class='card-text'>
                     <i class='far fa-adress-card'></i>
-                    <i>Nome: $linha[nome]<i><br>
+                    <i>CPF: $linha[cpf]<i><br>
                     <i class='far fa-adress-card'></i>
-                    <i>ID: $linha[Id]<i><br>
+                    <i>Nascimento: $linha[dataNascimento]<i><br>
                 </p>
             </div>
         </div>";

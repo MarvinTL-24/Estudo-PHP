@@ -7,7 +7,7 @@ $dataNascimento = $_POST["dataNascimento"]; // Recebe a data de nascimento
 $senha = password_hash($senha, PASSWORD_BCRYPT); // Usa bcrypt para fazer o hash da senha
 
 // Conexão com o banco de dados
-$conn = new mysqli('localhost', 'root', '', 'bd_senac'); 
+$conn = new mysqli('localhost', 'root', '', 'bd_senac');
 
 // Verifica se há erro na conexão com o banco de dados
 if ($conn->connect_error) {
@@ -17,12 +17,20 @@ if ($conn->connect_error) {
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
         // Configurações de upload
         $pasta = 'uploads/'; // Certifique-se de que a pasta existe e tem permissões de escrita
+
+        // Verifique se o diretório existe, se não, cria
+        if (!is_dir($pasta)) {
+            if (!mkdir($pasta, 0777, true)) {
+                die('Falha ao criar diretório de uploads.');
+            }
+        }
+
+        // Gerar um nome único para o arquivo
         $imagemNome = basename($_FILES['imagem']['name']);
-        $imagemPath = $pasta . uniqid() . '_' . $imagemNome; // Gera um nome único para evitar conflitos
+        $imagemPath = $pasta . uniqid() . '_' . $imagemNome;
 
         // Verificar se o arquivo enviado é realmente uma imagem
         $infoImagem = getimagesize($_FILES['imagem']['tmp_name']);
-        
         if ($infoImagem !== false) {
             // O arquivo é uma imagem
             // Verificar o tamanho do arquivo (opcional)
