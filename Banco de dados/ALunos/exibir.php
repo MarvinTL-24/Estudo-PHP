@@ -7,7 +7,7 @@ $id = $_GET['id'] ?? null;
 
 if ($id) {
     // Prepara a consulta SQL usando o ID recebido
-    $sql = "SELECT * FROM alunos WHERE Id = ?";
+    $sql = "SELECT * FROM alunos WHERE Id = 303";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
